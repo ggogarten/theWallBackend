@@ -1,0 +1,2 @@
+class WallPost < ApplicationRecord
+end
