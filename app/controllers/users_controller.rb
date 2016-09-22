@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   before_action :set_user, only: [:show, :update, :destroy]
-  before_filter :authenticate_user_from_token, except: [:token, :create]
+  before_filter :authenticate_user_from_token, except: [:token, :create, :show]
 
   # GET /users
   def index
