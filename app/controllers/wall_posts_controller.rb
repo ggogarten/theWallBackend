@@ -1,5 +1,11 @@
 class WallPostsController < ApplicationController
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
   before_action :set_wall_post, only: [:show, :update, :destroy]
+  before_filter :authenticate_user_from_token, except: [:token, :index]
+  # before_action :set_wall_post, only: [:update, :destroy]
+
 
   # GET /wall_posts
   def index
@@ -47,5 +53,15 @@ class WallPostsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def wall_post_params
       params.require(:wall_post).permit(:postMsg)
+    end
+
+
+
+    private
+
+    def authenticate_user_from_token
+      unless authenticate_with_http_token { |token, options| User.find_by(auth_token: token) }
+        render json: { error: 'Bad Token'}, status: 401
+      end
     end
 end
