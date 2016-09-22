@@ -22,7 +22,7 @@ class WallPostsController < ApplicationController
   # POST /wall_posts
   def create
     @wall_post = WallPost.new(wall_post_params)
-    @wall_post.user_id = User.username
+    @wall_post.user_id = @user.username
 
     if @wall_post.save
       render json: @wall_post, status: :created, location: @wall_post
