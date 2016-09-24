@@ -52,7 +52,7 @@ class WallPostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def wall_post_params
-      params.require(:wall_post).permit(:postMsg, :username)
+      params.require(:wall_post).permit(:postMsg, :username, :picture)
     end
 
 
